@@ -1,5 +1,6 @@
-import React from 'react'
-import { Route, Link,withRouter } from "react-router-dom";
+import React, { Fragment } from 'react'
+import { Link, withRouter } from "react-router-dom";
+import { desUsuario, isAuthenticate } from '../auth/auth'
 
 
 const isActive = (history, path) => {
@@ -12,23 +13,56 @@ const isActive = (history, path) => {
 
 
 const Menu = ({ history }) =>
-(
-    <di>
-        <ul className="nav nav-tabs bg-primary"> 
-           <li className="nav-item">
-                <Link className="nav-link"  
-                 style={isActive(history,'/')}  
-                 to="/"> Home</Link>
-           </li>
-           <li className="nav-item">
-                <Link className="nav-link"  style={isActive(history,'/ingresar')}  to="/ingresar">Ingresar</Link>
-           </li>
-           <li className="nav-item">
-                <Link className="nav-link"  style={isActive(history,'/registro')}  to="/registro">Registro</Link>
-           </li>
-        </ul>
-    </di>
-)
+    (
+        <div>
+            <ul className="nav nav-tabs bg-dark">
+                <li className="nav-item">
+                    <Link className="nav-link" style={isActive(history, '/')} to="/"> Home</Link>
+                </li>
+
+                {!isAuthenticate() && (
+                    <Fragment>
+                        <li className="nav-item">
+                            <Link className="nav-link" style={isActive(history, '/ingresar')} to="/ingresar">Ingresar</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" style={isActive(history, '/registro')} to="/registro">Registro</Link>
+                        </li>
+
+                    </Fragment>
+                )}
+
+                {isAuthenticate() && isAuthenticate().user.rol === 0 && (
+
+                    <li className="nav-item">
+                        <Link className="nav-link" style={isActive(history, '/usuario/dashboard')} to="/usuario/dashboard">Dashboard</Link>
+                    </li>
+                )}
+                {isAuthenticate() && isAuthenticate().user.rol === 1 && (
+
+                    <li className="nav-item">
+                        <Link className="nav-link" style={isActive(history, '/admin/dashboard')} to="/admin/dashboard">Dashboard</Link>
+                    </li>
+                )}
+
+                {isAuthenticate() && (
+                    <Fragment>
+
+
+
+                        <li className="nav-item">
+                            <span className="nav-link" style={{ cursor: "pointer", color: "#ffffff" }} onClick={() => desUsuario(() => {
+                                history.push('/')
+                            })}>
+                                Salir
+                      </span>
+                        </li>
+
+                    </Fragment>
+                )}
+            </ul>
+        </div>
+    )
 
 
 export default withRouter(Menu);

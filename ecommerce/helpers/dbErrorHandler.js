@@ -1,7 +1,7 @@
 "use strict";
  
 /**
- * Get unique error field name
+ * obtener mensaje de error por campo **
  */
 const uniqueMessage = error => {
     let output;
@@ -13,9 +13,9 @@ const uniqueMessage = error => {
         output =
             fieldName.charAt(0).toUpperCase() +
             fieldName.slice(1) +
-            " already exists";
+            " ya registrado en el sistema.";
     } catch (ex) {
-        output = "Unique field already exists";
+        output = " ya registrado en el sistema.";
     }
  
     return output;
@@ -34,7 +34,7 @@ exports.errorHandler = error => {
                 message = uniqueMessage(error);
                 break;
             default:
-                message = "Something went wrong";
+                message = "Oops! algo ha ocurrido.";
         }
     } else {
         for (let errorName in error.errorors) {

@@ -30,14 +30,14 @@ exports.ingresar = (req,res)=>{
    User.findOne({ correo }, (err, user) => {
        if (err || !user) {
            return res.status(400).json({
-               error: 'User with that email does not exist. Please signup'
+               error: 'No existe usuario con este correo. por favor registrar'
            });
        }
        // si el usario existe verificar que coincida con la contraseña
        // crear autenticacion el modelo del usuario
        if (!user.authenticate(contrasena)) {
            return res.status(401).json({
-               error: 'Email and password dont match'
+               error: 'Contraseña incorrecta'
            });
        }
        //generar un token con id de usuario 
