@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from "react-router-dom";
 import { desUsuario, isAuthenticate } from '../auth/auth'
-
+import { totalProductos } from '../components/carrito/carritoHelpers'
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -18,6 +18,17 @@ const Menu = ({ history }) =>
             <ul className="nav nav-tabs bg-dark">
                 <li className="nav-item">
                     <Link className="nav-link" style={isActive(history, '/')} to="/"> Home</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" style={isActive(history, '/tienda')} to="/tienda"> Tienda</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" style={isActive(history, '/carrito')} to="/carrito">
+                              Carrito 
+                        <sup>
+                            <small className="cart-badge"> {totalProductos()} </small>
+                        </sup>
+                    </Link>
                 </li>
 
                 {!isAuthenticate() && (

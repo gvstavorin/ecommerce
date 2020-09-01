@@ -1,0 +1,143 @@
+
+/*
+
+DISEÑO BORDE
+
+**/
+
+.nav{
+    margin-top:1cm;
+    border: #1c1c1d;
+    border-radius: 30px;
+}
+
+ /*
+
+DISEÑO  EN CARD producto
+
+**/
+
+.name {
+
+    background:rgb(97, 94, 99);
+    color:#fff;
+    font-weight:bold
+}
+  
+
+
+/*
+
+ BLACK-* card
+
+**/
+ 
+
+.black-10{
+     background:rgb(248, 243, 243);
+}
+
+.black-9{
+    background:rgb(248, 243, 243);
+
+}
+
+.black-8{
+    background:rgb(248, 243, 243);
+
+}
+
+.black-7{
+    background:rgb(248, 243, 243);
+
+}
+
+ /*
+
+DISEÑO IMAGEN EN CARD
+
+**/
+  
+.product-img {
+    min-height: 100px;
+}
+
+
+/*
+
+diseño jumbotron
+
+**/
+.jumbotron {
+    width: 30wh;
+    height: 30vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #9b9391, #8f7b83, #1c1c1d, #343535);
+    background-size: 400% 400%;
+    -webkit-animation: Gradient 15s ease infinite;
+    -moz-animation: Gradient 15s ease infinite;
+    animation: Gradient 15s ease infinite;
+}
+ 
+@-webkit-keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+ 
+@-moz-keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+ 
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/*
+
+diseño responsive css
+
+**/
+
+
+/*
+
+BODY PRINCIPAL
+**/
+
+/*
+
+CSS PARA CARRRITO
+**/
+
+
+.cart-badge, .cart-badge:hover{
+
+     border-radius: 60%;
+     padding:3px;
+     font-size:11px;
+     background:black;
+}

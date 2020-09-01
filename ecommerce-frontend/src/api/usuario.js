@@ -41,3 +41,4 @@ export const registro = (usuario) => {
          console.log(error)
      })
    }
+

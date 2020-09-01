@@ -45,10 +45,10 @@ const dashboardAdmin = ()=> {
         <Layout  titulo='Bienvenido' descripcion={`Hola ${nombre}`} className="container">
         
         <div className="row">
-              <div className="col-6">
+              <div className="col-md">
                    {adminInfo()}
                 </div>  
-                <div className="col-3 offset-md-3">
+                <div className="col-md offset-3">
                    {adminLinks()}
                 </div>            
         </div>

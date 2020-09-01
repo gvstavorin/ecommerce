@@ -4,7 +4,7 @@ const formidable = require('formidable');
 const _ = require ('lodash');
 const fs = require ('fs')
 const { findOneAndRemove } = require('../models/product');
-const product = require('../models/product');
+
 
 // crear un nuevo producto.
 exports.create = (req,res,next) => {
@@ -66,8 +66,10 @@ exports.create = (req,res,next) => {
 
 //Busca un producto por ID
 exports.productoPorId=(req,res,next,id) => {
-
-  Product.findById(id).exec((error,producto)=>{
+  
+  Product.findById(id)
+   .populate('categoria')
+   .exec((error,producto)=>{
 
     if(error || !producto){
         return res.status(400).json({
@@ -81,9 +83,8 @@ exports.productoPorId=(req,res,next,id) => {
   })
 
 }
-
-
 exports.read = (req, res) => {
+    
     req.producto.foto = undefined;
     return res.json(req.producto);
 };
@@ -188,7 +189,7 @@ exports.list =(req,res) =>{
     
     Product.find()
         .select('-foto')
-        .populate('category')
+        .populate('categoria')
         .sort([[sortBy, order]])
         .limit(limit)
         .exec((error, productos) => {
@@ -214,7 +215,7 @@ exports.list =(req,res) =>{
 
     Product.find({_id:{$ne:req.producto}, categoria:req.producto.categoria})
             .limit(limit)
-            .populate('categorias', '_id nombre')
+            .populate('categoria', '_id nombre')
             .exec((error, productos) => {
                 if (error) {
                     return res.status(400).json({
@@ -257,7 +258,7 @@ exports.listBySearch = (req, res) => {
  
     for (let key in req.body.filters) {
         if (req.body.filters[key].length > 0) {
-            if (key === "price") {
+            if (key === "precio") {
                 // gte -  greater than price [0-10]
                 // lte - less than
                 findArgs[key] = {
@@ -272,7 +273,7 @@ exports.listBySearch = (req, res) => {
  
     Product.find(findArgs)
         .select("-foto")
-        .populate("category")
+        .populate("categoria")
         .sort([[sortBy, order]])
         .skip(skip)
         .limit(limit)
@@ -296,4 +297,39 @@ exports.photo = (req, res, next) => {
         return res.send(req.producto.foto.data);
     }
     next();
+};
+
+exports.listSearch = (req, res) => {
+   
+    //crear query donde se enviaran los datos de busqueda y la categoria seleccionada en el fron-end
+    const query = {}
+
+    // se asigna el dato de busqueda a "query.name"
+
+    if(req.query.search) {
+        query.nombre = {$regex:req.query.search, $options:'i'}
+
+     // se asigna el valor de la categoria de la busqueda a "query.categoria"
+     
+     if (req.query.category && req.query.category != 'All') {
+              query.categoria = req.query.category
+       }
+
+      //encontrar el producto basado en la query ingresada al
+      
+      Product.find(query,(err, products) => {
+          if(err) {
+              return res.status(400).json({
+                  error: errorHandler(err)
+              })
+          }
+
+          res.json(products)
+      }).select('-photo')
+      
+    }
+
+
+
+
 };

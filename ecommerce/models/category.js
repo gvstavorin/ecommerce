@@ -21,7 +21,4 @@ const categorySchema = new mongoose.Schema({
 
 
 //virtual feed
-
-
-
 module.exports = mongoose.model("Category", categorySchema)

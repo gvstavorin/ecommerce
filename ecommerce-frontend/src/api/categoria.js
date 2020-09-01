@@ -22,3 +22,21 @@ export const crearCategoria = (userID,token,categoria) => {
   }
 
 
+ 
+export const obtenerCategorias = () => {
+
+  return fetch(`${API}/categories`,{
+       
+     method: "GET",
+     headers: {
+         Accept :'application/json',
+     },
+   })
+   .then(response =>{
+        return response.json()
+   })
+   .catch(error =>{
+       console.log(error)
+   })
+ }
+

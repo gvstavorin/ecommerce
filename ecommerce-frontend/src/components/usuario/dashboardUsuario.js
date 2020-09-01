@@ -15,7 +15,7 @@ const dashboardUsuario = ()=> {
             <div className="card">
             <h4 className="card-header"> Usuario</h4>
                  <ul className="list-group">
-                    <li className="list-group-item">  <Link className="nav-link" to="/carro">Mi carro</Link> </li>
+                    <li className="list-group-item">  <Link className="nav-link" to="/carrito">Mi carro</Link> </li>
                     <li className="list-group-item">  <Link className="nav-link" to="/perfil/modificar">Modificar Perfil</Link> </li>
                  </ul>
             </div>
