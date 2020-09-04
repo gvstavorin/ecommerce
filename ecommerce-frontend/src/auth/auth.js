@@ -18,6 +18,7 @@ export const authenticate = (data,next) =>{
 export const desUsuario = next => {
         if (typeof window !== 'undefined') {
             localStorage.removeItem('jwt');
+            localStorage.removeItem('carrito');
             next();
             return fetch(`${API}/desconectar`, {
                 method: 'GET'

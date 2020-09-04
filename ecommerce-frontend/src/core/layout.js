@@ -1,31 +1,32 @@
 import React from 'react'
-import Menu from './menu'
+import MenuPrincipal from './menu'
 import '../style.css'
+import Container from '@material-ui/core/Container';
 
-const Layout =({titulo="Titulo",descripcion="Descripcion", children,className   }) =>
 
-(
- <div>
-     
-   <div className="jumbotron"> 
-    
-     <h2>{titulo}</h2>
- 
-     <p className="lead"> {descripcion}</p>
-     <Menu></Menu>
-   </div>
-        <div className="principal">
-        <div  className={className}> 
+const Layout = ({ titulo = "Titulo", descripcion = "Descripcion", children, className }) =>
+
+  (
+    <div>
+
+      <div className="jumbotron">
+
+        <h2>{titulo}</h2>
+
+        <p className="lead"> {descripcion}</p>
+        <MenuPrincipal></MenuPrincipal>
+      </div>
+
+
+      <Container maxWidth="xl">
         {children}
-        
-        </div>
+      </Container>
 
-        </div>
-      
 
-   </div>
 
-)
+    </div>
+
+  )
 
 
 export default Layout;

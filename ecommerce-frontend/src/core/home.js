@@ -44,10 +44,10 @@ const Home = () => {
 
   return (
 
-    <Layout titulo='Pagina Inicio' descripcion="Ecommer-e  App con react js:)" className="container">
+    <Layout titulo='Pagina Inicio' descripcion="Ecommer-e  App con react js:)" className="container-fluid">
 
       <Busqueda></Busqueda>
-      <h2 className="mb-4"> Nuevos productos</h2>
+      <h2 className="mb-2"> Nuevos productos</h2>
 
       <div className="row">
         {productosPorLlegada.map((producto, index) =>

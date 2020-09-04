@@ -37,7 +37,6 @@ const Mostrarproducto = (props) => {
     useEffect(() => {
         const productoId = props.match.params.productoId
         cargarProducto(productoId)
-        console.log(producto)
     },[props])
 
 

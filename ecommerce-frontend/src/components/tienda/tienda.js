@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../../core/layout'
 import Card from '../productos/cardProducto'
 import { obtenerCategorias } from '../../api/categoria'
@@ -83,7 +83,7 @@ const Tienda = () => {
         const newFilter = { ...myFilters }
         newFilter.filters[filterBy] = filters
 
-        if (filterBy == 'precio') {
+        if (filterBy ==='precio') {
             let precioValue = handlePrice(filters)
             newFilter.filters[filterBy] = precioValue;
         }

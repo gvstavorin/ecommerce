@@ -59,10 +59,12 @@ DISEÑO IMAGEN EN CARD
 **/
   
 .product-img {
-    min-height: 100px;
+    min-height: 107px;
+    min-Width: 181px;
+    max-Height: 215px;
+    max-Width: 245px;
+
 }
-
-
 /*
 
 diseño jumbotron
@@ -141,3 +143,42 @@ CSS PARA CARRRITO
      font-size:11px;
      background:black;
 }
+
+/*
+
+CSS PARA iconos
+**/
+
+.icon-delete{
+    color: red;
+
+
+}
+
+
+.icon-check{
+    color:green;
+}
+
+.alignright {
+    float: right;
+
+}
+
+
+
+
+.menu-perfil{
+    background:rgb(74, 73, 75);
+    border-radius:10px;
+    margin-left:-230.4%;
+
+    height: 116px;
+    width: 176px;
+}
+
+.link {
+   
+    margin-left: 17px;
+    text-decoration: none!important;
+  }

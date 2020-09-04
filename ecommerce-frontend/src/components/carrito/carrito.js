@@ -53,7 +53,7 @@ const Carrito =()=>{
 
     return (
              
-        <Layout titulo='Tus productos' descripcion="Listo para comprar?" className="container-fluid">
+        <Layout titulo='Tus productos' descripcion="Listo para comprar?" className="container">
 
             
                    <div className="row">
@@ -63,7 +63,7 @@ const Carrito =()=>{
                         <div className="col">
                          <h2 className="mb-4"> Total Compra</h2>
                           <hr/>
-                       <Checkout productos={productos}></Checkout>
+                       <Checkout productos={productos} setRun={setRun} run={run}></Checkout>
 
                               
                         </div> 
