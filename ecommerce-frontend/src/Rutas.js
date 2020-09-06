@@ -12,7 +12,7 @@ import AgregarProducto from './components/productos/agregarProducto'
 import Tienda from './components/tienda/tienda'
 import Mostrarproducto from './components/productos/mostrarProducto';
 import Carrito from './components/carrito/carrito'
-
+import Pedidos from './components/pedidos/pedidos'
 
 
 const Routes = () =>{
@@ -33,12 +33,17 @@ const Routes = () =>{
                {/* //RUTAS REALACIONADAS CON productos*/}   
                <Route path='/producto/:productoId' exact component ={Mostrarproducto}/>               
                <AdminRoute path='/crear/producto' exact component ={AgregarProducto}/>
+               
                {/*  //RUTAS RELACIONADAS CON LA TIENDA */}   
               
                <Route path='/tienda' exact component ={Tienda}/>
               {/*  //RUTAS RELACIONADAS CON CARRITO DE COMPRA */}   
                
               <Route path='/carrito' exact component ={Carrito}/>
+
+                 {/*  //RUTAS RELACIONADAS CON CARRITO LOS PEDIDOS */}   
+                 <AdminRoute path='/admin/pedidos' exact component ={Pedidos}/>
+
 
                
             </Switch>

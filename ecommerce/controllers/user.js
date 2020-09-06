@@ -41,3 +41,34 @@ exports.update =(req,res,next) =>{
     
 
 }
+
+
+
+exports.addOrderToUserHistory = (req,res,next) => {
+
+    let historial = []
+   
+     req.body.order.productos.forEach((item) => {
+        historial.push({
+                 _id:item._id,
+                 nombre:item.nombre,
+                 descripcion:item.descripcion,
+                 categoria:item.categoria,
+                 cantidad:item.count,
+                 transaction_id:req.body.order.transaction_id,
+                 amount:req.body.order.amount
+  
+           })
+     })
+  
+     
+     User.findOneAndUpdate({ _id: req.profile._id }, { $push: { historial: historial } }, { new: true }, (error, data) => {
+        if (error) {
+            return res.status(400).json({
+                error: 'Could not update user purchase history'
+            });
+        }
+        next();
+        })
+  
+  }

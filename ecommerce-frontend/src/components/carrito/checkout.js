@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { obtenerTokenClienteBraintree,proccessPayment } from '../../api/braintree';
-import {obtenerProductos} from '../../api/producto'
+import { crearPedido } from '../../api/pedidos';
 import { emptyCart } from './carritoHelpers';
 import Card from '../productos/cardProducto';
 import { isAuthenticate } from '../../auth/auth';
@@ -17,7 +17,7 @@ const Checkout = ({ productos, setRun = f => f, run = undefined }) => {
         clientToken: null,
         error: '',
         instance: {},
-        address: ''
+        direccion: ''
     });
 
     const userId = isAuthenticate() && isAuthenticate().user._id;
@@ -40,7 +40,7 @@ const Checkout = ({ productos, setRun = f => f, run = undefined }) => {
     }, [run]);
 
     const handleAddress = event => {
-        setData({ ...data, address: event.target.value });
+        setData({ ...data, direccion: event.target.value });
     };
 
     const getTotal = () => {
@@ -59,11 +59,11 @@ const Checkout = ({ productos, setRun = f => f, run = undefined }) => {
         );
     };
 
-    let deliveryAddress = data.address;
+    let direccionEntrega = data.direccion;
 
     const buy = () => {
         setData({ loading: true });
-        // send the nonce to your server
+        // enviar nonce a nuestro servidor
         // nonce = data.instance.requestPaymentMethod()
         let nonce;
         let getNonce = data.instance
@@ -71,45 +71,46 @@ const Checkout = ({ productos, setRun = f => f, run = undefined }) => {
             .then(data => {
                 // console.log(data);
                 nonce = data.nonce;
-                // once you have nonce (card type, card number) send nonce as 'paymentMethodNonce'
-                // and also total to be charged
-                // console.log(
-                //     "send nonce and total to process: ",
-                //     nonce,
-                //     getTotal(products)
-                // );
-
-                 const paymentData = {
-                     paymentMethodNonce : nonce,
-                     amount:getTotal(productos)
-                 }
-
-                 proccessPayment(userId,token,paymentData)
-                 .then(response => 
-                      
-                    setData({...data, success:response.success}),
-                    //vaciar carro y crear orden.
-                    emptyCart(()=>
-                    {
-                        setRun(!run); // run useEffect in parent Cart
-                        console.log('payment success and empty cart');
-                       setData({
-                        loading: false,
-                        success: true
-                    });
-                    })
-
-
-                    
-
-                )
-                 .catch(error => 
-                    //console.log(error)
-
-                   setData({loading: false})
-                 
-                 )
+                // una vez obtengas el nonce (card type, card number) enviar nonce como 'paymentMethodNonce'
            
+                const paymentData = {
+                    paymentMethodNonce: nonce,
+                    amount: getTotal(productos)
+                };
+
+                proccessPayment(userId, token, paymentData)
+                    .then(response => {
+                        console.log(response);
+                        // empty cart
+                        // create order
+
+                        const crearOrdenData = {
+                            productos: productos,
+                            transaction_id: response.transaction.id,
+                            amount: response.transaction.amount,
+                            direccion: direccionEntrega
+                        };
+
+                        crearPedido(userId, token, crearOrdenData)
+                            .then(response => {
+                                emptyCart(() => {
+                                    setRun(!run); // run useEffect in parent Cart
+                                    console.log('payment success and empty cart');
+                                    setData({
+                                        loading: false,
+                                        success: true
+                                    });
+                                });
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                setData({ loading: false });
+                            });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        setData({ loading: false });
+                    });
             })
             .catch(error => {
                 // console.log("dropin error: ", error);
@@ -122,12 +123,12 @@ const Checkout = ({ productos, setRun = f => f, run = undefined }) => {
             {data.clientToken !== null && productos.length > 0 ? (
                 <div>
                     <div className="gorm-group mb-3">
-                        <label className="text-muted">Delivery address:</label>
+                        <label className="text-muted">Direccion de entrega:</label>
                         <textarea
                             onChange={handleAddress}
                             className="form-control"
-                            value={data.address}
-                            placeholder="Type your delivery address here..."
+                            value={data.direccion}
+                            placeholder=""
                         />
                     </div>
 

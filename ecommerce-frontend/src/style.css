@@ -74,7 +74,7 @@ diseño jumbotron
     width: 30wh;
     height: 30vh;
     color: #fff;
-    background: linear-gradient(-45deg, #9b9391, #8f7b83, #1c1c1d, #343535);
+    background: linear-gradient(-45deg, #b6b3b3, #c0a7b1, #73737e, #829797);
     background-size: 400% 400%;
     -webkit-animation: Gradient 15s ease infinite;
     -moz-animation: Gradient 15s ease infinite;
@@ -170,15 +170,16 @@ CSS PARA iconos
 
 .menu-perfil{
     background:rgb(74, 73, 75);
-    border-radius:10px;
-    margin-left:-230.4%;
+    border-radius:10px !important;
+    margin-right: 40px;
+    margin-top : 10px !important;
 
-    height: 116px;
-    width: 176px;
+
+  
 }
 
 .link {
-   
     margin-left: 17px;
     text-decoration: none!important;
+    
   }

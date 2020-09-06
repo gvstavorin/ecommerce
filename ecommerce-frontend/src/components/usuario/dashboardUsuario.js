@@ -8,7 +8,6 @@ const dashboardUsuario = ()=> {
 
      const {user:{_id,nombre,correo,rol}} = isAuthenticate()
        //console.log(isAuthenticate())
-
        const userLinks = () =>{
 
         return (

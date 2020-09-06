@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, setState } from 'react'
 import { Link, withRouter } from "react-router-dom";
 import { desUsuario, isAuthenticate } from '../auth/auth'
 import { totalProductos } from '../components/carrito/carritoHelpers'
@@ -7,6 +7,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -16,8 +18,12 @@ const isActive = (history, path) => {
     }
 };
 
+let datosUsuario = JSON.parse(localStorage.getItem('jwt'));
+let MiCuenta = "Mi cuenta"
 
 const Menu = ({ history }) =>
+
+
     (
         <div>
             <ul className="nav nav-tabs bg-dark">
@@ -44,20 +50,31 @@ const Menu = ({ history }) =>
                     </Tooltip>
 
                 </li>
+            
+            {isAuthenticate() && (
 
+                <div className="btn-group dropdown-menu-lg-left  boton-perfil">
+                    <Button style={{
+                        color: "white",
+                        fontSize: "12px",
+                        minWidth: "200"
+                       
+                    }}
+                        data-toggle="dropdown"
 
-                <div className="btn-group dropdown-menu-lg-left">
-                    <Tooltip data-toggle="dropdown" title="Ver Perfil">
-                        <IconButton variant="contained" color="default"  >
-                            <AccountCircleIcon></AccountCircleIcon>
-                        </IconButton>
-                    </Tooltip>
+                        endIcon={<AccountCircleIcon />}
+                    >
+
+                        Mi Cuenta
+
+                    </Button>
+
                     <div className="dropdown-menu menu-perfil">
                         {isAuthenticate() && isAuthenticate().user.rol === 0 && (
                             <li className="nav-item">
-                                
-                                    <Link className="link" style={isActive(history, '/usuario/dashboard')} to="/usuario/dashboard"> Perfil Usuario</Link>
-                               
+
+                                <Link className="link" style={isActive(history, '/usuario/dashboard')} to="/usuario/dashboard"> Perfil </Link>
+
                             </li>
 
 
@@ -65,21 +82,23 @@ const Menu = ({ history }) =>
                         )}
                         {isAuthenticate() && isAuthenticate().user.rol === 1 && (
                             <li className="nav-item">
-                             
-                                    <Link className="link"  style={isActive(history, '/admin/dashboard')} to="/admin/dashboard">Perfil Administrador </Link>
-                                
+
+                                <Link className="link" style={isActive(history, '/admin/dashboard')} to="/admin/dashboard">Perfil  </Link>
+
                             </li>
 
 
 
                         )}
 
+                           <div className="dropdown-divider"></div>
 
                         {isAuthenticate() && (
                             <Fragment>
 
                                 <li className="nav-item">
                                     <span className="link" style={{ cursor: "pointer", color: "#ffffff" }} onClick={() => desUsuario(() => {
+                                        datosUsuario = null;
                                         history.push('/')
                                     })}>
                                         Salir
@@ -88,26 +107,29 @@ const Menu = ({ history }) =>
 
                             </Fragment>
                         )}
-                       {!isAuthenticate() && (
-                    <Fragment>
-                        <li className="nav-item  ">
-                            <Link className="link"  style={isActive(history, '/ingresar')} to="/ingresar">Ingresar</Link>
-                        </li>
-                        <li className="nav-item  ">
-                            <Link className="link" style={isActive(history, '/registro')} to="/registro">Registro</Link>
-                        </li>
 
 
-                    </Fragment>
-                )}
 
-                     
+
 
 
                     </div>
                 </div>
+            )}
+             
+                {!isAuthenticate() && (
+                   <li className="nav-item">
+                       <Link className="nav-link" style={isActive(history, '/ingresar')} to="/ingresar"> Ingresar</Link>
+                  </li>
+                
+                        )}
 
-            
+                {!isAuthenticate() && (
+                   <li className="nav-item">
+                       <Link className="nav-link" style={isActive(history, '/registro')} to="/registro"> Registrarse</Link>
+                  </li>
+                
+                        )}
 
 
             </ul>
