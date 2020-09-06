@@ -83,8 +83,8 @@ export const crearProducto = (userID,token,producto) => {
 
 
    
-   export const buscarProductoPorId = (productoId) => {   
-   return fetch(`${API}/product/${productoId}`,{
+   export const buscarProductoPorId = (productId) => {   
+   return fetch(`${API}/product/${productId}`,{
         
       method: "GET",
 
@@ -116,3 +116,82 @@ export const crearProducto = (userID,token,producto) => {
  }
 
   
+
+
+
+
+ export const obtenerProductosParaAdmin = () => {
+
+  
+  return fetch(`${API}/products`,{
+       
+     method: "GET",
+
+   })
+   .then(response =>{
+        return response.json()
+   })
+   .catch(error =>{
+       console.log(error)
+   })
+ }
+
+  
+ export const eliminarProducto = (productId,userId,token) => {
+
+
+  return fetch(`${API}/product/${productId}/${userId}`, {
+
+      method: "DELETE",
+      headers: {
+          Accept: 'application/json',
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+      },
+
+  })
+      .then(response => {
+          return response.json()
+      })
+      .catch(error => {
+          console.log(error)
+      })
+}
+
+
+export const obtenerUnProducto = (productId) => {
+
+  
+  return fetch(`${API}/products/${productId}}`,{
+       
+     method: "GET",
+
+   })
+   .then(response =>{
+        return response.json()
+   })
+   .catch(error =>{
+       console.log(error)
+   })
+ }
+
+
+ export const modificarProducto = (productId, token,userId,producto) => {
+
+
+  return fetch(`${API}/product/${productId}/${userId}`, {
+
+      method: "PUT",
+      headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+         body:producto
+  })
+      .then(response => {
+          return response.json()
+      })
+      .catch(error => {
+          console.log(error)
+      })
+}

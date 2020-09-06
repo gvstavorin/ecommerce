@@ -1,4 +1,7 @@
 const User = require ('../models/user');
+const {Order} = require('../models/order')
+
+const {errorHandler} = require ('../helpers/dbErrorHandler')
 
 exports.usuarioPorId = (req,res,next,id) => {
 
@@ -45,9 +48,8 @@ exports.update =(req,res,next) =>{
 
 
 exports.addOrderToUserHistory = (req,res,next) => {
-
+    
     let historial = []
-   
      req.body.order.productos.forEach((item) => {
         historial.push({
                  _id:item._id,
@@ -71,4 +73,21 @@ exports.addOrderToUserHistory = (req,res,next) => {
         next();
         })
   
+  }
+
+
+  exports.purchaseHistory= (req, res)=>{
+
+    Order.find({usuario:req.profile._id})
+    .populate('usuario', '_id nombre')
+    .sort('-created')
+    .exec((error,order)=>{
+          if (error){
+              res.status(400).json({
+                  error:errorHandler(error)
+              })
+          }
+
+          res.json(order)
+    })
   }

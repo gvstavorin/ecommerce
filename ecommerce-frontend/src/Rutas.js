@@ -13,7 +13,9 @@ import Tienda from './components/tienda/tienda'
 import Mostrarproducto from './components/productos/mostrarProducto';
 import Carrito from './components/carrito/carrito'
 import Pedidos from './components/pedidos/pedidos'
-
+import PerfilUsuario from './components/usuario/perfilUsuario'
+import MantenedorProductos from './components/productos/mantenedorProductos'
+import ModificarProducto from './components/productos/modificarProducto'
 
 const Routes = () =>{
     
@@ -25,14 +27,19 @@ const Routes = () =>{
                <Route path='/' exact component ={Home}/>
                <Route path='/registro' exact component ={Registro}/>
                <Route path='/ingresar' exact component ={Ingreso}/>
+               <PrivateRoute path='/perfil/:userId' exact component ={PerfilUsuario}/>
                <PrivateRoute path='/usuario/dashboard' exact component ={dashboardUsuario}/>
                <AdminRoute path='/admin/dashboard' exact component ={dashboardAdmin}/>
               {/* //RUTAS REALACIONADAS CON CATEGORIAS*/}   
                
                <AdminRoute path='/crear/categoria' exact component ={AgregarCategoria}/>
                {/* //RUTAS REALACIONADAS CON productos*/}   
-               <Route path='/producto/:productoId' exact component ={Mostrarproducto}/>               
+               <Route path='/producto/:productId' exact component ={Mostrarproducto}/>               
                <AdminRoute path='/crear/producto' exact component ={AgregarProducto}/>
+               <AdminRoute path='/admin/productos' exact component ={MantenedorProductos}/>
+               <AdminRoute path='/admin/producto/modificar/:productId' exact component ={ModificarProducto}/>
+
+
                
                {/*  //RUTAS RELACIONADAS CON LA TIENDA */}   
               

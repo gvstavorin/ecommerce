@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../../core/layout'
 import { isAuthenticate } from '../../auth/auth'
-import { crearProducto } from '../../api/producto'
+import { crearProducto,buscarProductoPorId,modificarProducto } from '../../api/producto'
 import { obtenerCategorias } from '../../api/categoria'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 
-const AgregarProducto = () => {
+const ModificarProducto = ({match}) => {
 
     const [values, setValues] = useState({
         nombre: '',
         descripcion: '',
         precio: '',
-        categorias: [],
+      categorias: [],
         categoria: '',
         envio: '',
         cantidad: '',
@@ -31,16 +31,39 @@ const AgregarProducto = () => {
 
 
     //cargar categorias para select.
-    const init = () => {
+    const init = productId => {
+        buscarProductoPorId(productId).then(response => {
+            if (response.error) {
+                setValues({ ...values, error: response.error })
+            } else {
+                setValues({ ...values,
+                    nombre:response.nombre,
+                    descripcion:response.descripcion,
+                    precio:response.precio,
+                    categoria: response.categoria._id,
+                    envio:response.envio,
+                    cantidad:response.cantidad,
+                    redirectToProfile: true,
+
+                    formData: new FormData() })
+                initCategorias()
+
+            }
+        })
+    }
+
+    const initCategorias = () => {
         obtenerCategorias().then(response => {
             if (response.error) {
                 setValues({ ...values, error: response.error })
             } else {
-                setValues({ ...values, categorias: response, formData: new FormData() })
+                setValues({ categorias: response, formData: new FormData() })
             }
         })
     }
-    useEffect(() => { init() }, [])
+    useEffect(() => { 
+        init(match.params.productId) 
+    }, [])
 
     const handleChange = name => event => {
         const value = name === 'foto' ? event.target.files[0] : event.target.value
@@ -57,7 +80,7 @@ const AgregarProducto = () => {
         event.preventDefault()
         setValues({ ...values, error: '', loading: true })
 
-        crearProducto(user._id, token, formData)
+        modificarProducto(match.params.productId, token, user._id, formData)
             .then(data => {
                 if (data.error) {
                     setValues({ ...values, error: data.error })
@@ -86,7 +109,7 @@ const AgregarProducto = () => {
     )
     const showSuccess = () => (
         <div className="alert alert-info " style={{ display: productoCreado ? '' : 'none' }}>
-            <h2>{`${productoCreado}`} Agregado como producto correctamente </h2>
+            <h2>{`${productoCreado}`} Producto modificado correctamente </h2>
         </div>
     )
 
@@ -96,6 +119,14 @@ const AgregarProducto = () => {
             <div className="alert alert-success"><h2>Cargando...</h2></div>
         )
     )
+
+
+    const redirectUser =() =>{
+        if(redirectToProfile){
+            if(!error)
+            {return <Redirect to="/"></Redirect>}
+        }
+    }
 
 
     const goBack = () => (
@@ -118,24 +149,24 @@ const AgregarProducto = () => {
                     <h4>Elegir foto</h4>
                     <div className="form-group">
                         <label className="btn btn-dark">
-                            <input type="file" name="foto" accept="image/*" onChange={handleChange('foto')} required></input>
+                            <input type="file" name="foto" accept="image/*" onChange={handleChange('foto')} ></input>
                         </label>
                     </div>
                     <div className="row">
 
                         <div className="form-group col-md-6">
                             <label className="text-muted">Nombre</label>
-                            <input type="text" className="form-control" onChange={handleChange('nombre')} value={nombre} required></input>
+                            <input type="text" className="form-control" onChange={handleChange('nombre')} value={nombre} ></input>
                         </div>
                         <div className="form-group col-md-6">
                             <label className="text-muted">Precio</label>
-                            <input type="number" className="form-control" onChange={handleChange('precio')} value={precio} required></input>
+                            <input type="number" className="form-control" onChange={handleChange('precio')} value={precio} ></input>
                         </div>
                     </div>
                     <div className="row">
                     <div className="form-group col-md-6">
                         <label className="text-muted">Categoria</label>
-                        <select type="text" className="form-control" onChange={handleChange('categoria')} required>
+                        <select  type="text" className="form-control" onChange={handleChange('categoria')} >
                             <option>-- Seleccionar opcion -- </option>
                             {categorias && categorias.map((categorias, i) => (
                                 <option key={i} value={categorias._id} > {categorias.nombre}  </option>
@@ -144,23 +175,23 @@ const AgregarProducto = () => {
                     </div>
                     <div className="form-group col-md-6">
                         <label className="text-muted">Cantidad</label>
-                        <input type="number" className="form-control" onChange={handleChange('cantidad')} value={cantidad} required></input>
+                        <input type="number" className="form-control" onChange={handleChange('cantidad')} value={cantidad} ></input>
                     </div>
                     </div>
                     <div className="form-group">
                         <label className="text-muted">Descripcion</label>
-                        <input type="area" className="form-control" onChange={handleChange('descripcion')} value={descripcion} required></input>
+                        <input type="area" className="form-control" onChange={handleChange('descripcion')} value={descripcion} ></input>
                     </div>
                     <div className="form-group">
                         <label className="text-muted">Envio</label>
-                        <select type="text" className="form-control" onChange={handleChange('envio')} required>
+                        <select type="text" className="form-control" onChange={handleChange('envio')} >
                             <option>-- Seleccionar opcion -- </option>
                             <option value="0">No</option>
                             <option value="1">Si</option>
                         </select>
                     </div>
                     <div className="text-center">
-                        <button className="btn btn-primary">Agregar producto</button>
+                        <button className="btn btn-primary">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -169,7 +200,7 @@ const AgregarProducto = () => {
     return (
 
         <div>
-            <Layout titulo='Productos' descripcion="Agregar una nuevo producto" >
+            <Layout titulo='Productos' descripcion="Modificar producto" >
 
                 <div className="row">
                     <div className="col-md-8 offset-md-2">
@@ -189,4 +220,4 @@ const AgregarProducto = () => {
     )
 }
 
-export default AgregarProducto;
+export default ModificarProducto;

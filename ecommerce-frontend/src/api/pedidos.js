@@ -11,6 +11,8 @@ export const crearPedido = (userId, token,crearOrdenData) => {
         method: "POST",
         headers: {
             Accept: 'application/json',
+            "Content-Type": "application/json",
+
             Authorization: `Bearer ${token}`
         },
         body:JSON.stringify({order:crearOrdenData})
@@ -78,6 +80,28 @@ export const modificarEstadoPedido = (userId, token,orderId, status) => {
         },
 
         body : JSON.stringify({status,orderId})
+    })
+        .then(response => {
+            return response.json()
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+
+export const obtenerHistorialDeCompras = (userId, token) => {
+
+
+    return fetch(`${API}/order/by/user/${userId}`, {
+
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+
     })
         .then(response => {
             return response.json()

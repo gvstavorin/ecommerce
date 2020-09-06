@@ -122,16 +122,16 @@ exports.update = (req,res,next) => {
                })
            }
 
-              //Validador para los campos de producto.
+       //      //Validador para los campos de producto.
 
-              const {nombre , descripcion, precio , categoria , cantidad , envio } = fields
+       //      const {nombre , descripcion, precio , categoria , cantidad , envio } = fields
 
-              if(!nombre || !descripcion || !precio || !categoria || !cantidad || !envio){
+       //      if(!nombre || !descripcion || !precio || !categoria || !cantidad || !envio){
   
-                  return res.status(400).json({
-                      error : 'Todos los campos son requeridos.'
-                  })
-              }
+       //          return res.status(400).json({
+       //              error : 'Todos los campos son requeridos.'
+       //          })
+       //      }
      
 
            let producto = req.producto

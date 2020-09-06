@@ -18,6 +18,8 @@ const dashboardAdmin = ()=> {
                     <li className="list-group-item">  <Link className="nav-link" to="/crear/categoria">Agregar nueva categoria</Link> </li>
                     <li className="list-group-item">  <Link className="nav-link" to="/crear/producto">Agregar nuevos productos</Link> </li>
                     <li className="list-group-item">  <Link className="nav-link" to="/admin/pedidos">Ver pedidos</Link> </li>
+                    <li className="list-group-item">  <Link className="nav-link" to="/admin/productos">Ver productos</Link> </li>
+
 
                  </ul>
             </div>
