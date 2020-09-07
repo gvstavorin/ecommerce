@@ -2,6 +2,7 @@ import React from "react";
 import Layout from '../../core/layout'
 import {isAuthenticate} from './../../auth/auth'
 import {Link} from 'react-router-dom'
+import {Box,Grid} from '@material-ui/core'
 
 const dashboardAdmin = ()=> {
 
@@ -28,7 +29,7 @@ const dashboardAdmin = ()=> {
 
        const adminInfo =() =>{
            return (
-            <div className="card mb-5">
+            <div className="card">
             <h3 className="card-header"> Informacion </h3>
             <ul className="list-group">
                <li className="list-group-item"> {nombre}</li>
@@ -46,16 +47,26 @@ const dashboardAdmin = ()=> {
     return(
 
         <div>
-        <Layout  titulo='Bienvenido' descripcion={`Hola ${nombre}`} className="container">
-        
-        <div className="row">
-              <div className="col-md">
-                   {adminInfo()}
-                </div>  
-                <div className="col-md offset-3">
-                   {adminLinks()}
-                </div>            
-        </div>
+        <Layout  titulo='Bienvenido' descripcion={`Hola ${nombre}`} >
+    
+                  
+                  <Grid container >
+                     <Grid item xs={12} sm={6} > 
+                          <Box  m={3} pt={3}>
+                                {adminInfo()}
+                          </Box>
+                     </Grid>
+                     <Grid item xs={12} sm={6} > 
+                          <Box  m={3} pt={3}>
+                                {adminLinks()}
+                          </Box>
+                     </Grid>
+                  
+                  </Grid>
+            
+            
+                 
+       
     
         
         </Layout>

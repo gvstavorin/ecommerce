@@ -2,6 +2,7 @@ import React from 'react'
 import MenuPrincipal from './menu'
 import '../style.css'
 import Container from '@material-ui/core/Container';
+import {Box,Grid} from '@material-ui/core'
 
 
 const Layout = ({ titulo = "Titulo", descripcion = "Descripcion", children, className }) =>
@@ -17,10 +18,15 @@ const Layout = ({ titulo = "Titulo", descripcion = "Descripcion", children, clas
         <MenuPrincipal></MenuPrincipal>
       </div>
 
+       <Grid>
 
-      <Container maxWidth="xl">
-        {children}
-      </Container>
+       {children}
+       </Grid>
+            
+
+      
+     
+
 
 
 

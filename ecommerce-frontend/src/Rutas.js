@@ -34,7 +34,7 @@ const Routes = () =>{
                
                <AdminRoute path='/crear/categoria' exact component ={AgregarCategoria}/>
                {/* //RUTAS REALACIONADAS CON productos*/}   
-               <Route path='/producto/:productId' exact component ={Mostrarproducto}/>               
+               <Route path='/producto/:productoId' exact component ={Mostrarproducto}/>               
                <AdminRoute path='/crear/producto' exact component ={AgregarProducto}/>
                <AdminRoute path='/admin/productos' exact component ={MantenedorProductos}/>
                <AdminRoute path='/admin/producto/modificar/:productId' exact component ={ModificarProducto}/>

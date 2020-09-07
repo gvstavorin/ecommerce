@@ -4,6 +4,8 @@ import {isAuthenticate} from './../../auth/auth'
 import {Link} from 'react-router-dom'
 import {obtenerHistorialDeCompras} from '../../api/pedidos'
 import moment from 'moment'
+import {Box,Grid} from '@material-ui/core'
+
 moment().locale('es')
 const DashboardUsuario = ()=> {
 
@@ -30,7 +32,7 @@ const DashboardUsuario = ()=> {
 
         return (
             <div className="card">
-            <h4 className="card-header"> Usuario</h4>
+            <h4 className="card-header"> Opciones</h4>
                  <ul className="list-group">
                     <li className="list-group-item">  <Link className="nav-link" to="/carrito">Mi carro</Link> </li>
                     <li className="list-group-item">  <Link className="nav-link" to={`/perfil/${_id}`}>Modificar Perfil</Link> </li>
@@ -89,20 +91,28 @@ const DashboardUsuario = ()=> {
         <div>
         <Layout  titulo='Bienvenido' descripcion={`Hola ${nombre}`} className="container">
         
-        <div className="row">
-              <div className="col-6">
-                   {userInfo()}
-                </div>  
-                <div className="col-3 offset-md-3">
-                   {userLinks()}
-                </div>            
-        </div>
-        <div className="row">
-              <div className="col">
-                   {historialCompra(historial)}
-                </div>  
-                       
-        </div>
+     <Grid container>
+          <Grid item xs={12} sm={6}>
+                 <Box  m={3} pt={3}>
+                 {userInfo()}
+
+                </Box>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+                 <Box  m={3} pt={3}>
+                 {userLinks()}
+
+
+                </Box>
+          </Grid>
+          <Grid item xs={12} sm={12}>
+                 <Box  m={3} pt={3}>
+                 {historialCompra(historial)}
+
+
+                </Box>
+          </Grid>
+     </Grid>
         
         </Layout>
             

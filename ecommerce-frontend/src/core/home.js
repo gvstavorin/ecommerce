@@ -44,7 +44,7 @@ const Home = () => {
 
   return (
 
-    <Layout titulo='Pagina Inicio' descripcion="Ecommer-e  App con react js:)" className="container-fluid">
+    <Layout titulo='Pagina Inicio' descripcion="Ecommer-e  App con react js:)" >
 
       <Busqueda></Busqueda>
       <h2 className="mb-2"> Nuevos productos</h2>

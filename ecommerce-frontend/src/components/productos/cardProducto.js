@@ -182,7 +182,12 @@ const Card = ({ producto,
 
         //       </div>
         //    </div>
-        <CardMaterial className={classes.root}>
+     
+     
+       <div className="row">
+
+           <div className="col-8">
+         <CardMaterial className={classes.root}>
             <CardActionArea>
                 {sRedirect(redirect)}
 
@@ -201,7 +206,7 @@ const Card = ({ producto,
                 </CardContent>
             </CardActionArea>
             <CardActions>
-
+      
  
  
  
@@ -213,8 +218,9 @@ const Card = ({ producto,
 
             </CardActions>
         </CardMaterial>
+        </div>
 
-
+      </div>
 
 
 
