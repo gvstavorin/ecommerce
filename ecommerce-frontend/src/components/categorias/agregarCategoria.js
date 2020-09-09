@@ -7,19 +7,13 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import ConfirmDialog from '../../core/confirm'
 
 const AgregarCategoria = () => {
 
     const [nombre, setNombre] = useState("");
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [confirmDialog, setConfirmDialog] = useState({
-        isOpen: false,
-        titulo:'',
-        subtitulo:'',
-        
-    })
+
 
 
     // obtener * usuario y token desde localstorage
@@ -91,7 +85,6 @@ const AgregarCategoria = () => {
         <div>
             <Layout titulo='Categeorias' descripcion="Agregar una nueva categoria" >
                 <Grid container alignItems="center" justify="center" style={{ padding: '10px' }}>
-                    <ConfirmDialog></ConfirmDialog>
                     <Grid item xs={12} sm={9}  >
                         <Box m={2} pt={3}>
                         {showError()}

@@ -4,7 +4,8 @@ import Card from '../productos/cardProducto'
 import {obtenerCarrito} from './carritoHelpers'
 import { Link } from 'react-router-dom'
 import Checkout from './checkout'
-
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 
 
@@ -29,6 +30,7 @@ const Carrito =()=>{
                             <hr/>
 
                               {productos.map((producto,i)=>(
+                                
                                   <Card producto={producto} key={i}
                                    botonAgregarAlCarrito={false} 
                                    modificarCarrito={true}
@@ -56,19 +58,31 @@ const Carrito =()=>{
         <Layout titulo='Tus productos' descripcion="Listo para comprar?" className="container">
 
             
-                   <div className="row">
-                        <div className="col">
-                         {productos.length > 0 ? MostrarProductos(productos) :mensajeSinProductos()}  
-                        </div> 
-                        <div className="col">
-                         <h2 className="mb-4"> Total Compra</h2>
+         
+
+                   <Grid container alignItems="center" justify="center" style={{ padding: '10px' }}>
+                    <Grid item xs={12} sm={5}  >
+                        <Box m={2} pt={3}>
+                        {productos.length > 0 ? MostrarProductos(productos) :mensajeSinProductos()}  
+
+                        </Box>
+                    </Grid>
+
+                    <Grid item xs={12} sm={5}  >
+                        <Box m={2} pt={3}>
+                        <h2 className="mb-4"> Total Compra</h2>
                           <hr/>
                        <Checkout productos={productos} setRun={setRun} run={run}></Checkout>
 
-                              
-                        </div> 
+                        </Box>
+                    </Grid>
+               
+                </Grid>
 
-                   </div>
+
+
+
+
       </Layout>
 
     )
