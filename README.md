@@ -1,15 +1,10 @@
 # ecommerce
 
-proyecto de tienda 
-
-backend : node js  / frontend : react js /  DB: mongodb / express
-
-
+backend : node js  /express 
+frontend : react js
+BD: Mmongodb
 
 Proyecto de ecommerce.   
-
-MERN 
-
 Desarrollado con MongoDB + Express + React js + Node js
 
 
