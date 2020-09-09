@@ -4,6 +4,10 @@ import { obtenerProductos } from '../api/producto'
 import { obtenerCategorias } from "../api/categoria";
 import Card from '../components/productos/cardProducto'
 import Busqueda from '../components/tienda/busquedaProducto'
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 
 const Home = () => {
@@ -44,29 +48,24 @@ const Home = () => {
 
   return (
 
-    <Layout titulo='Pagina Inicio' descripcion="Ecommer-e  App con react js:)" >
-
-      <Busqueda></Busqueda>
-      <h2 className="mb-2"> Nuevos productos</h2>
-
-      <div className="row">
+    <Layout titulo='Pagina Inicio' descripcion="TIENDA ACG" >
+      <Grid container alignItems="center" justify="center"  style={{padding:'10px'}}>
+        
+            <Busqueda></Busqueda>
+        
+        <Grid item xs={12} sm={9}  >
+          <Box m={2} pt={3}>
+            <h2 className="mb-2">  </h2>
+          </Box>
+        </Grid>
         {productosPorLlegada.map((producto, index) =>
-               <div key={index} className="col-4 mb-3">
-                   <Card  producto={producto} ></Card>
-               </div>
-         
+          <Grid item xs={12} sm={8} md={4}  key={index} >
+            <Box m={2} pt={3}>
+              <Card producto={producto} ></Card>
+            </Box>
+          </Grid>
         )}
-      </div>
-
-      <h2 className="mb-2"> Lo mas vendido</h2>
-      <div className="row">
-
-        {pruductosPorVenta.map((producto, index) =>
-            <div key={index} className="col-4 mb-3">
-            <Card  producto={producto} ></Card>
-        </div>
-        )}
-      </div>
+      </Grid>
 
     </Layout>
   )

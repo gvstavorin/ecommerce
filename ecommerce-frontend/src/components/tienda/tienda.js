@@ -6,6 +6,17 @@ import { buscarProducto } from '../../api/producto'
 import Checkbox from '../categorias/checkbox';
 import { Precios } from '../categorias/filtroPrecios'
 import RadioBox from '../categorias/radiobox'
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import CardM from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 const Tienda = () => {
 
 
@@ -19,7 +30,26 @@ const Tienda = () => {
     const [size, setSize] = useState(0);
     const [resultado, setResultado] = useState([]);
 
+    const useStyles = makeStyles({
+        root: {
+            minWidth: 275,
+        },
+        bullet: {
+            display: 'inline-block',
+            margin: '0 2px',
+            transform: 'scale(0.8)',
+        },
+        title: {
+            fontSize: 14,
+        },
+        pos: {
+            marginBottom: 12,
+        },
+      
+    });
 
+    const classes = useStyles();
+    const bull = <span className={classes.bullet}>•</span>;
     //cargar categorias 
     const init = () => {
         obtenerCategorias().then(data => {
@@ -56,10 +86,10 @@ const Tienda = () => {
                 setError(data.error)
             }
             else {
-                setResultado([...resultado,...data.data]);
+                setResultado([...resultado, ...data.data]);
                 setSize(data.size)
                 setSkip(0)
-              
+
 
             }
         })
@@ -83,7 +113,7 @@ const Tienda = () => {
         const newFilter = { ...myFilters }
         newFilter.filters[filterBy] = filters
 
-        if (filterBy ==='precio') {
+        if (filterBy === 'precio') {
             let precioValue = handlePrice(filters)
             newFilter.filters[filterBy] = precioValue;
         }
@@ -104,59 +134,75 @@ const Tienda = () => {
         return array;
     }
 
-    return (
-        <Layout
-            titulo="Tienda"
-            descripcion="Busca y encuentra tu producto ideal"
-            className="container-fluid">
-            <div className="row">
-                <div className="col-2">
 
-                    <h4>Filtrar por categorias</h4>
+     const MenuFiltro = () => {
+         return (
+            <div >
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className={classes.heading}>Filtrar</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                
+            <CardM className={classes.root}>
+                <CardContent>
+                    <Grid item xs={12} >
+                    <h4>Categorias</h4>
                     <ul>
                         <Checkbox
                             categorias={categorias}
                             handleFilter={filters => handleFilter(filters, 'categoria')}
-
                         />
-
-
                     </ul>
-
-                    <h4>Filtrar por Precio</h4>
+                    </Grid>
+                    <Grid item xs={12}>
+                    <h4>Precio</h4>
                     <ul>
                         <RadioBox
                             precios={Precios}
                             handleFilter={filters => handleFilter(filters, 'precio')}
                         />
                     </ul>
-                </div>
-                <div className="col-sm">
-                    <h2 className="mb-4">Productos</h2>
-                    <div className="row">
-                        {resultado.map((producto, i) => {
-                            if (producto) {
-                                return (
-                                    <div key={i} className="col-4 mb-3">
-                                    <Card  producto={producto} ></Card>
-                                </div>
-                                )
-                            } else {
-                                return (
-                                    <h2> no hay jiji</h2>
+                    </Grid>
+                </CardContent>
+            </CardM>
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </div>
+         )
+     }
 
-                                )
-                            }
-                        })}
-                    </div>
-                    <hr/>
-                     <div className="text-center">
-                     {botonCargarProductos()}
-                     </div>
-                 
-                </div>
-            </div>
 
+
+    return (
+        <Layout
+            titulo="Tienda"
+            descripcion="Busca y encuentra tu producto ideal">
+                      <Grid  >
+                    {MenuFiltro ()}
+                    </Grid>
+            <Grid container>
+          
+                  
+                        {resultado.map((producto, index) =>
+                        <Grid item xs={12} sm={4} key={index} md={3} >
+                            <Box m={2} >
+                                <Card key={index} producto={producto} ></Card>
+                            </Box>
+                            </Grid>
+                        )}
+    
+           
+          
+          
+            </Grid>
+          
         </Layout>
     )
 

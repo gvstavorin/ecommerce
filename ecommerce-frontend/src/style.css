@@ -58,13 +58,7 @@ DISEÑO IMAGEN EN CARD
 
 **/
   
-.product-img {
-    min-height: 107px;
-    min-Width: 181px;
-    max-Height: 215px;
-    max-Width: 245px;
 
-}
 /*
 
 diseño jumbotron
@@ -183,3 +177,28 @@ CSS PARA iconos
     text-decoration: none!important;
     
   }
+
+.barra-busqueda{
+
+    background:#DCE4EE;
+}
+
+.input-busqueda{
+    background:#DCE4EE;
+   
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3.3fr 0.1fr;
+    grid-template-rows: 1fr 2.3fr 0.1fr;
+    gap: 1px 1px;
+    grid-template-areas:
+      "FILTROS CARDS CARDS ."
+      "FILTROS CARDS CARDS ."
+      ". . . .";
+  }
+  
+  .FILTROS { grid-area: FILTROS; }
+  
+  .CARDS { grid-area: CARDS; }

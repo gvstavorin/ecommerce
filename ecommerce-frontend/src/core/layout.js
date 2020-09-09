@@ -18,10 +18,10 @@ const Layout = ({ titulo = "Titulo", descripcion = "Descripcion", children, clas
         <MenuPrincipal></MenuPrincipal>
       </div>
 
-       <Grid>
+     
 
        {children}
-       </Grid>
+      
             
 
       

@@ -5,7 +5,10 @@ import moment from 'moment'
 import { agregarAlCarrito, moficarCarritoProducto, eliminarCarritoProducto } from '../carrito/carritoHelpers'
 import { makeStyles } from '@material-ui/core/styles';
 import CardMaterial from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
+
 import CardActionArea from '@material-ui/core/CardActionArea';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -17,6 +20,8 @@ import CurrencyFormat from 'react-currency-format';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import Tooltip from '@material-ui/core/Tooltip';
+import ButtonBase from '@material-ui/core/ButtonBase';
+
 
 
 const useStyles = makeStyles({
@@ -24,8 +29,16 @@ const useStyles = makeStyles({
 
         maxWidth: 500,
         maxHeight: 500,
-        margin: 10
-    }
+        borderRadius: 0,
+        background: 'linear-gradient(90deg, rgba(240,240,240,1) 0%, rgba(247,247,247,0.5998774509803921) 100%);',
+        boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+   
+    },
+    media: {
+        height: 200,
+        width: 'auto',
+        borderRadius: '2px'
+          },
 });
 
 
@@ -161,40 +174,22 @@ const Card = ({ producto,
 
     return (
 
-        //   <div className="card ">
-        //       <div className="card-header">
-        //           {producto.nombre}
-        //       </div>
-        //       <div className="card-body">
-        //       
-        //           <p className="lead mt-2">{producto.descripcion.substring(0, 50)}</p>
-        //           <p className="black-9">Precio: ${producto.precio}</p>
-        //           <p className="black-8">Categoria: {producto.categoria && producto.categoria.nombre}</p>
-        //           <p className="black-8">Agregado el {moment(producto.createdAt).format('MM-DD-YYYY')}</p>
-
-        //          
-        //           <br />
-        //          
-
-        //           {btnAgregarCarro(botonAgregarAlCarrito)}    {btnEliminarProductoCarrito(botonEliminarProducto)}
-        //           {MostrarModificacionCarrito(modificarCarrito)}
-
-
-        //       </div>
-        //    </div>
      
      
-       <div className="row">
-
-           <div className="col-8">
+        
          <CardMaterial className={classes.root}>
-            <CardActionArea>
+             
+            <CardActionArea onClick={()=> {btnVerProducto(BotonVerProducto)}}>
                 {sRedirect(redirect)}
+                <CardHeader  title={producto.nombre}   subheader={producto.categoria.nombre}    />
 
+                <Grid container alignItems="center" justify="center"  >
                 <MostrarImagen className={classes.media} img={producto} url="products"></MostrarImagen>
+
+               </Grid>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {producto.nombre}   {MostrarStock(producto.cantidad)}
+                         {MostrarStock(producto.cantidad)}
                     </Typography>
                     <Typography gutterBottom  >
                         <CurrencyFormat value={producto.precio} displayType={'text'} thousandSeparator={true} prefix={'$'} />
@@ -218,10 +213,7 @@ const Card = ({ producto,
 
             </CardActions>
         </CardMaterial>
-        </div>
-
-      </div>
-
+    
 
 
 
